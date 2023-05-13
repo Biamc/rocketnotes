@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import {Link} from 'react-router-dom'
 
 export const  Container = styled.div`
   width: 100%;
@@ -68,15 +68,12 @@ padding: 0 6.4rem;
 background-color: ${({theme}) => theme.COLORS.BACKGROUND_800};
 overflow-y: auto;// caso a tela ultrapasse, o scroll aparece de forma automatica.
 `
-export const NewNote = styled.button`
+export const NewNote = styled(Link)`
 grid-area: newnote;
 
-border: none;
 background-color: ${({theme}) => theme.COLORS.ORANGE};
-padding: 2.7rem 6.3rem;
 
-font-size: 2rem;
-line-height: 2.6rem;
+
 color: ${({theme}) => theme.COLORS.BACKGROUND_900};
 
 display: flex;

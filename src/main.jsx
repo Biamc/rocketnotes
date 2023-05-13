@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { ThemeProvider } from 'styled-components'; // o theme provider vai prover um tema geral para toda a aplicação
 import GlobalStyle  from './styles/global.js';
 import theme from'./styles/theme'
+import { Routes } from './routes';
 
-import { SignUp } from './pages/SignUp';
 
 
 
@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle/>
-      <SignUp/>
+      <Routes/>
     </ThemeProvider>
     
   </React.StrictMode>,

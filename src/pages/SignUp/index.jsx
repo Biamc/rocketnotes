@@ -6,6 +6,7 @@ import { Container, Form, Background } from './styles';
 import { Button } from '../../components/Button';
 import { ButtonText } from '../../components/ButtonText';
 import { Input } from '../../components/Input';
+import { Link } from "react-router-dom";
 
 export function SignUp (){
   return(
@@ -29,7 +30,7 @@ export function SignUp (){
         ico ={FiLock}/>
 
         <Button title="Cadastrar"/>
-        <a href="#"> <ButtonText title="Voltar para o Login" isActive/></a>
+        <Link to="/"> <ButtonText title="Voltar para o Login" isActive/></Link>
       </Form>
       
     </Container>

@@ -8,7 +8,7 @@ pode utilizar no return, tanto o <> </>, quanto <fragment> </fragment>
 import {Container, Links, Content} from './styles'
 import { Header } from '../../components/Header';
 import { Button } from '../../components/Button'
-import { Section } from '../../components/section';
+import { Section } from '../../components/Section';
 import { ButtonText } from '../../components/ButtonText';
 import { Tag } from '../../components/Tags';
 
