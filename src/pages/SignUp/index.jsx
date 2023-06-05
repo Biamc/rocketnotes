@@ -1,14 +1,43 @@
+import {useState} from 'react'//é um gancho(hook)
+//é um estado 
+
 import {FiLogIn, FiMail, FiLock} from "react-icons/fi"
-import {BsPerson} from "react-icons/bs"
+import { Link, useNavigate } from "react-router-dom";
+
+import {api} from '../../sevices/api'
+
 
 import { Container, Form, Background } from './styles';
-
 import { Button } from '../../components/Button';
 import { ButtonText } from '../../components/ButtonText';
 import { Input } from '../../components/Input';
-import { Link } from "react-router-dom";
 
 export function SignUp (){
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const navigate = useNavigate()
+
+  function handleSignUp (){
+    if(!name || !email || !password){
+      return alert ('É necessário preencher todos os campos')
+    }
+
+    api.post('/users', {name, email, password})
+    .then(() => {
+      alert('Usuário cadastrado com sucesso')
+      navigate('/')
+    })
+    .catch(error => {
+      if(error.response){
+        alert(error.response.data.message)
+      } else{
+        alert('Não foi possível cadastra o usuário')
+      }
+    })
+  }
+
   return(
     <Container>
       <Background/>
@@ -21,15 +50,22 @@ export function SignUp (){
         <h2>Crie sua conta</h2>
         <Input  placeholder="Nome"
         type="text"
-        ico={BsPerson} />
+        ico={FiLogIn}
+        onChange={event => setName(event.target.value)}
+        />
         <Input  placeholder="E-mail" 
         type="text"
-        ico ={FiMail}/>
+        ico ={FiMail}
+        onChange={event => setEmail(event.target.value)}
+        />
         <Input  placeholder="Senha" 
         type="password"
-        ico ={FiLock}/>
+        ico ={FiLock}
+        onChange={event => setPassword(event.target.value)}
+        />
 
-        <Button title="Cadastrar"/>
+        <Button title="Cadastrar"
+        onClick= {handleSignUp}/>
         <Link to="/"> <ButtonText title="Voltar para o Login" isActive/></Link>
       </Form>
       
