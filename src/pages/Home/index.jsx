@@ -21,9 +21,6 @@ export function Home(){
   
   function handleTagsSelecteds (tagName){
 
-    if(tagName ==='all'){
-      return setTagsSelected([])
-    }
     const alreadySelected = tagsSelected.includes(tagName)
     
     if(alreadySelected){
