@@ -20,6 +20,10 @@ export function Home(){
   const [notes, setNotes] = useState([])
   
   function handleTagsSelecteds (tagName){
+    
+    if (tagName === 'all'){
+      return setTagsSelected([])
+    }
 
     const alreadySelected = tagsSelected.includes(tagName)
     
@@ -37,7 +41,7 @@ export function Home(){
       setTags(response.data)
     }
     fetchTags()
-  }, [])
+  }, [tagsSelected, search])
 
   useEffect(() => {
     async function fetchNotes() {
@@ -92,7 +96,8 @@ export function Home(){
             notes.map(note => (
             <Note
             key={String(note.id)}
-            data={note}/>
+            data={note}
+            />
 
             ))
         }

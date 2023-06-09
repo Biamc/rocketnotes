@@ -62,7 +62,7 @@ grid-area: content;
 
 display: flex;
 flex-direction: column;
-justify-content: center;
+
 padding: 0 6.4rem;
 
 background-color: ${({theme}) => theme.COLORS.BACKGROUND_800};

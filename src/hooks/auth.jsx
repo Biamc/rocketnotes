@@ -80,7 +80,7 @@ function AuthProvider ({children}) {
 
       setData({
         token,
-        user:JSON.parse(user)// pega os dados do usuario que estavam armazenados num formato de texto e tranforma ele emum objeto do tipo json
+        user:JSON.parse(user)// pega os dados do usuario que estavam armazenados num formato de texto e tranforma ele e mum objeto do tipo json
       })
     }
   }, [])
