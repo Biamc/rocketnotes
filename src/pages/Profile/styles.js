@@ -19,6 +19,11 @@ height: 100vh;
     color: ${({theme}) => theme. COLORS.GRAY_100};
   }
 
+  button {
+    background: none;
+    border: none;
+    }
+
 };
 `
 

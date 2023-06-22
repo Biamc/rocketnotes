@@ -4,6 +4,10 @@ import {Fragment} from 'react'
 
 pode utilizar no return, tanto o <> </>, quanto <fragment> </fragment>
 */
+import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+import {api} from '../../sevices/api'
 
 import {Container, Links, Content} from './styles'
 import { Header } from '../../components/Header';
@@ -13,37 +17,99 @@ import { ButtonText } from '../../components/ButtonText';
 import { Tag } from '../../components/Tags';
 
 export function Details (){
+
+  const [data, setData] = useState(null)
+  
+  const params = useParams()
+
+  const navigate = useNavigate()
+
+  function handleBack(){
+    navigate(-1)
+  }
+
+  async function handleRemove(){
+    const confirm = window.confirm('Deseja remover a nota?')
+
+    if(confirm){
+      await api.delete(`/notes/${params.id}`)
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    async function fetchNotes(){
+      const response = await api.get(`/notes/${params.id}`)
+
+      setData(response.data)
+    }
+    fetchNotes()
+    
+  }, [])
  
   return(
     <Container>
       <Header/>
-      <main>
-        <Content>
-          <ButtonText title="Excluir a Nota"/>
-          <h1>
-            Introdução ao React
-          </h1>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      {
+        data && 
+        <main>
+          <Content>
+            <ButtonText title="Excluir a Nota"
+            onClick={handleRemove}/>
+            <h1>
+              {data.title}
+            </h1>
+            <p>
+              {data.description}
+            </p>
 
-          </p>
-          <Section title="Links úteis">
-            <Links>
-              <li>
-                <a href="https://rocketseat.com.br">"https://rocketseat.com.br"</a>
-              </li>
-              <li>
-                <a href="https://rocketseat.com.br">"https://rocketseat.com.br"</a>
-              </li>
-            </Links>
-          </Section>
-          <Section title="Marcadores">
-            <Tag title="Express"></Tag>
-            <Tag title="Node.js"></Tag>
-          </Section>
-          <Button title='Voltar' />
-        </Content>
-      </main>
+            {
+              data.links &&
+              <Section title="Links úteis">
+              <Links>
+                {
+                  data.links.map(link => (
+                    <li key={String(link.id)}>
+                      <a 
+                      href={link.url}>
+                        {link.url}
+                      </a>
+                    </li>
+                  ))
+                  
+                }
+              
+                
+                
+              </Links>
+            </Section>
+            }
+            {
+              data.tags &&
+              <Section title="Marcadores">
+                {
+                  data.tags.map(tag => (
+                    <Tag 
+                    key={String(tag.id)}
+                    title={tag.name}
+                    />
+
+                  ))
+                }
+                
+                
+                
+              </Section>
+            }
+            
+           
+            <Button 
+                title='Voltar'
+                onClick={handleBack}/>
+          </Content>
+        </main>
+      } 
+    
       
     </Container>
     

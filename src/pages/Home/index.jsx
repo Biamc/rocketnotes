@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {api} from '../../sevices/api'
 import {FiPlus} from 'react-icons/fi'
 
@@ -18,6 +20,10 @@ export function Home(){
   const [tags, setTags] = useState([])
   const [tagsSelected, setTagsSelected] = useState([])
   const [notes, setNotes] = useState([])
+
+  const navigate = useNavigate()
+
+  
   
   function handleTagsSelecteds (tagName){
     
@@ -34,6 +40,10 @@ export function Home(){
 
     setTagsSelected(prevState => [...prevState, tagName])
     }
+  }
+
+  function handleDetails(id){
+    navigate(`/details/${id}`)
   }
   useEffect(() => {
     async function fetchTags(){
@@ -86,7 +96,7 @@ export function Home(){
       <Search>
         <Input 
         placeholder="Pesquizar pelo título" 
-        onChange={() => setSearch(e.target.value)}        
+        onChange={(event) => setSearch(event.target.value)}        
         />
       </Search>
 
@@ -97,6 +107,7 @@ export function Home(){
             <Note
             key={String(note.id)}
             data={note}
+            onClick={() => handleDetails(note.id)}
             />
 
             ))

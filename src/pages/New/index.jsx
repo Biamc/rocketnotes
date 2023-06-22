@@ -10,6 +10,7 @@ import {TextArea} from '../../components/TextArea';
 import { Section } from '../../components/Section';
 import { NoteItem } from '../../components/NoteItem';
 import { Button } from '../../components/Button';
+import { ButtonText } from '../../components/ButtonText';
 
 export function New(){
 
@@ -24,7 +25,9 @@ export function New(){
 
   const navigate = useNavigate()
 
-
+  function handleBack(){
+    navigate(-1)
+  }
 
 function handleAddLink(){
   setLinks((previusState) =>[...previusState , newLink])
@@ -62,7 +65,7 @@ async function handleNewNote (){
     tags
   })
   alert('Nota criada com sucesso')
-  navigate('/')
+  navigate(-1)
 }
 
   return(
@@ -72,7 +75,10 @@ async function handleNewNote (){
         <Form>
           <header>
             <h1>Criar Nota</h1>
-            <Link to="/">Voltar</Link>
+            <ButtonText
+            title='Voltar'
+            onClick={handleBack}/>
+            
           </header>
           <Input
           placeholder="Título"
